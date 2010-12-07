@@ -96,6 +96,10 @@ if(UNIX)
 else(UNIX)
 endif(UNIX)
 
+if (SC_QT)
+  add_definitions(-DSC_QT)
+endif (SC_QT)
+
 if (SC_WII OR APPLE)
 	if(CMAKE_SYSTEM_NAME MATCHES "Linux")
 		find_package(CWiid)
@@ -135,6 +139,10 @@ else()
 		PROPERTY COMPILE_DEFINITIONS NO_INTERNAL_SERVER
 		)
 endif()
+
+if (SC_QT)
+  target_link_libraries(libsclang QtCollider)
+endif (SC_QT)
 
 set_property(TARGET libsclang
 	PROPERTY OUTPUT_NAME sclang)

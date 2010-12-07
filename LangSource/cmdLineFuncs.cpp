@@ -28,12 +28,26 @@
 #if USE_SC_TERMINAL_CLIENT
 
 #include "SC_TerminalClient.h"
+
+#ifdef SC_QT
+# include "../../QtCollider/ScQt.h"
+#endif
+
 #include <stdio.h>
+
+int runTerminalClient( int & argc, char ** argv )
+{
+  SC_TerminalClient app("sclang");
+  return app.run( argc, argv );
+}
 
 int main(int argc, char** argv)
 {
-	SC_TerminalClient app("sclang");
-	return app.run(argc, argv);
+#ifdef SC_QT
+  return QtCollider::run( argc, argv, &runTerminalClient );
+#else
+  return runTerminalClient( argc, argv );
+#endif
 }
 
 #else // !USE_SC_TERMINAL_CLIENT

@@ -17,15 +17,18 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
+/*
 
-#include "SC_LanguageClient.h"
+Pools for memory allocation.
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+*/
+
+
+#ifndef _AllocPools_
+#define _AllocPools_
+
+class AllocPool;
+extern AllocPool *pyr_pool_compile;
+extern AllocPool *pyr_pool_runtime;
+
+#endif

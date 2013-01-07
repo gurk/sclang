@@ -18,14 +18,36 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-#include "SC_LanguageClient.h"
 
-int main(int argc, char** argv)
+#ifndef _SC_Msg_
+#define _SC_Msg_
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "SC_Reply.h"
+#include "sc_msg_iter.h"
+
+class SC_Msg;
+
+enum { // Handler IDs
+    kUnknownAction = 0,
+    kRealTimeAction = 1,
+    kNonRealTimeAction = 2,
+    kEitherTimeAction = 3
+};
+
+int32 Hash(ReplyAddress *inReplyAddress);
+
+struct OSC_Packet
 {
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+	char *mData;
+	int32 mSize;
+	bool mIsBundle;
+
+	ReplyAddress mReplyAddr;
+};
+
+void FreeOSCPacket(OSC_Packet *inPacket);
+
+#endif

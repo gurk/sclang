@@ -17,15 +17,42 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
+/*
 
-#include "SC_LanguageClient.h"
+A PyrSymbol is a unique string that resides in a global hash table.
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+*/
+
+#ifndef _PYRSYMBOL_H_
+#define _PYRSYMBOL_H_
+
+#include "SC_Types.h"
+
+struct PyrSymbol {
+	char *name;
+	long hash;
+	short specialIndex;
+	uint8 flags;
+	uint8 length;
+	union {
+		long index; // index in row table or primitive table
+		struct PyrClass *classobj;	// pointer to class with this name.
+		char *source; // source code for sym_Filename; used only during compilation.
+	} u;
+	struct classdep *classdep;
+};
+
+enum {
+	sym_Selector = 1,
+	sym_Class = 2,
+	sym_Compiled = 4,
+	sym_Called = 8,
+	sym_Primitive = 16,
+	sym_Setter = 32,
+	sym_MetaClass = 64,
+	sym_Filename = 128
+};
+
+
+#endif
+

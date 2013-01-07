@@ -18,14 +18,42 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-#include "SC_LanguageClient.h"
+#ifndef LANG_MISCINLINEMATH_H
+#define LANG_MISCINLINEMATH_H
 
-int main(int argc, char** argv)
+#define NUMPRIMES 6542
+long nthPrime(int n);
+long findPrime(int n);
+long prevPrime(int n);
+long nextPrime(int n);
+
+
+inline double linlin(double x, double a, double b, double c, double d)
 {
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
+    if (x <= a) return c;
+    if (x >= b) return d;
+    return (x-a)/(b-a) * (d-c) + c;
 }
+
+inline double explin(double x, double a, double b, double c, double d)
+{
+    if (x <= a) return c;
+    if (x >= b) return d;
+    return (log(x/a)) / (log(b/a)) * (d-c) + c;
+}
+
+inline double expexp(double x, double a, double b, double c, double d)
+{
+    if (x <= a) return c;
+    if (x >= b) return d;
+    return pow(d/c, log(x/a)) / (log(b/a)) * c;
+}
+
+inline double linexp(double x, double a, double b, double c, double d)
+{
+    if (x <= a) return c;
+    if (x >= b) return d;
+    return pow(d/c, (x-a)/(b-a)) * c;
+}
+
+#endif

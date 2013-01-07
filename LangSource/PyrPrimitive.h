@@ -17,15 +17,26 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
+/*
 
-#include "SC_LanguageClient.h"
+Functions for defining language primitives.
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+*/
+
+#ifndef _PYRPRIMITIVE_H_
+#define _PYRPRIMITIVE_H_
+
+#include "PyrSlot.h"
+
+typedef int (*PrimitiveHandler)(struct VMGlobals *g, int numArgsPushed);
+typedef int (*PrimitiveWithKeysHandler)(struct VMGlobals *g, int numArgsPushed, int numKeyArgsPushed);
+
+int nextPrimitiveIndex();
+int definePrimitive(int base, int index, const char *name, PrimitiveHandler handler, int numArgs, int varArgs);
+int definePrimitiveWithKeys(int base, int index, const char *name,
+	PrimitiveHandler handler, PrimitiveWithKeysHandler keyhandler,
+	int numArgs, int varArgs);
+int getPrimitiveNumArgs(int index);
+PyrSymbol* getPrimitiveName(int index);
+
+#endif

@@ -17,15 +17,33 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
+/*
 
-#include "SC_LanguageClient.h"
+virtual machine error codes.
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+*/
+
+#ifndef _SCErrors_
+#define _SCErrors_
+
+enum { // primitive errors
+	errReturn = -1,	// not really an error.. primitive executed a non-local return
+	errNone,
+	errFailed = 5000,
+	errBadPrimitive,
+	errWrongType,
+	errIndexNotAnInteger,
+	errIndexOutOfRange,
+	errImmutableObject,
+	errNotAnIndexableObject,
+	errStackOverflow,
+	errOutOfMemory,
+	errCantCallOS,
+	errException,
+
+	errPropertyNotFound = 6000,
+
+    errLastError
+};
+
+#endif

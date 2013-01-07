@@ -18,14 +18,12 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-#include "SC_LanguageClient.h"
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+extern PyrSymbol *s_func, *s_absfunc;
+extern PyrSymbol *s_docmdline;
+extern PyrSymbol *s_nocomprendo;
+extern PyrSymbol *s_curProcess, *s_curMethod, *s_curBlock, *s_curClosure, *s_curThread;
+extern PyrSymbol *s_startup;
+extern PyrSymbol *s_hardwaresetup, *s_shutdown;
+extern PyrSymbol *s_envirGet, *s_envirPut;
+

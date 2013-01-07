@@ -18,14 +18,17 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-#include "SC_LanguageClient.h"
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+#ifndef _PYRARRAYPRIM_H_
+#define _PYRARRAYPRIM_H_
+
+void initArrayPrimitives();
+
+int prArrayMultiChanExpand(VMGlobals *g, int numArgsPushed);
+
+int arrayAtIdentityHash(PyrObject *array, PyrSlot *key);
+int arrayAtIdentityHashInPairs(PyrObject *array, PyrSlot *key);
+int arrayAtIdentityHashInPairsWithHash(PyrObject *array, PyrSlot *key, int hash);
+
+
+#endif

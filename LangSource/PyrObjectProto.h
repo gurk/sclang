@@ -18,14 +18,27 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-#include "SC_LanguageClient.h"
+#ifndef _PYROBJPROTO_H_
+#define _PYROBJPROTO_H_
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+#include "PyrObject.h"
+
+void initSymbols();
+void initClasses();
+void buildClassTree();
+
+void freePyrSlot(PyrSlot *slot);
+void freePyrObject(PyrObject* obj);
+
+bool objAddIndexedSlot(PyrObject *obj, PyrSlot *slot);
+bool objAddIndexedSymbol(PyrSymbolArray *obj, PyrSymbol *symbol);
+bool objAddIndexedObject(PyrObject *obj, PyrObject *obj2);
+
+void CallStackSanity(struct VMGlobals *g, const char * tagstr);
+bool FrameSanity(struct PyrFrame *frame, const char* tagstr);
+
+void dumpBadObject(PyrObject *obj);
+void initRawRegistry();
+
+#endif
+

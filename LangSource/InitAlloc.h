@@ -18,14 +18,15 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-#include "SC_LanguageClient.h"
+#ifndef _InitAlloc_
+#define _InitAlloc_
 
-int main(int argc, char** argv)
-{
-	SC_LanguageClient * client = createLanguageClient("sclang");
-	if (!client)
-		return 1;
-	int returnCode = client->run(argc, argv);
-	destroyLanguageClient(client);
-	return returnCode;
-}
+#include "SCBase.h"
+#include "SC_AllocPool.h"
+#include <stdexcept>
+
+#define MEMFAIL(ptr) if (!(ptr)) { throw std::runtime_error("Out of memory!\n"); }
+#define MEMFAILED throw std::runtime_error("Out of memory!\n");
+
+#endif
+
